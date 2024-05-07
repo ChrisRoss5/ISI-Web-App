@@ -10,13 +10,8 @@
     "strict": true,
     "skipLibCheck": true,
     "baseUrl": "src",
-    // "typeRoots": ["./typings", "./node_modules/@types"],
-    "typeRoots": ["./typings"],
-    "types": ["express", "@types/jest"]
+    "typeRoots": ["./typings", "./node_modules/@types"],
+    "types": ["express", "jest"]
   },
-  "include": [
-    "./*.js",
-    "src/**/*.ts",
-    "test/**/*.ts",
-  ],
+  "include": ["./*.js", "src/**/*.ts", "test/**/*.ts"]
 }

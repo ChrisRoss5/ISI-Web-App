@@ -1,9 +1,9 @@
-import { Router } from 'express'
-import { requireUser } from '../../middlewares'
-import * as UserController from './users.controllers'
+import { Router } from "express";
+import { requireUser } from "../../middlewares";
+import * as UserController from "./users.controllers";
 
-const router = Router()
+const router = Router();
 
-router.get('/me', requireUser, UserController.me)
+router.get("/me", requireUser, UserController.me);
 
-export default router
+export default router;

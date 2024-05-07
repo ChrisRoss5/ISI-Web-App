@@ -12,7 +12,7 @@
     "test": "dotenv -e .env.test jest -- --runInBand"
   },
   "keywords": [],
-  "author": "Andrei Mihai",
+  "author": "Kristijan Rosandić",
   "license": "MIT",
   "dependencies": {
     "@prisma/client": "^4.4.0",

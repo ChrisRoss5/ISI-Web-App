@@ -1,15 +1,15 @@
-import { db } from './db'
-import { globalUserCredentials } from './globalSetup'
+import { db } from "./db";
+import { globalUserCredentials } from "./globalSetup";
 
 const teardown = async () => {
-  await db.task.deleteMany()
+  await db.task.deleteMany();
 
   await db.user.delete({
     where: {
       id: globalUserCredentials.id,
     },
-  })
-  console.log('---------TESTS FINISHED--------')
-}
+  });
+  console.log("---------TESTS FINISHED--------");
+};
 
-export default teardown
+export default teardown;

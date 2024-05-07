@@ -1,6 +1,6 @@
-import { RefreshToken, User } from '@prisma/client'
-import { db } from '../../db'
-import { hashToken } from '../../utils/hashToken'
+import { RefreshToken, User } from "@prisma/client";
+import { db } from "../../db";
+import { hashToken } from "../../utils/hashToken";
 
 // used when we create a refresh token.
 export function addRefreshTokenToWhitelist({
@@ -8,9 +8,9 @@ export function addRefreshTokenToWhitelist({
   refreshToken,
   userId,
 }: {
-  jti: string
-  refreshToken: string
-  userId: User['id']
+  jti: string;
+  refreshToken: string;
+  userId: User["id"];
 }) {
   return db.refreshToken.create({
     data: {
@@ -18,20 +18,20 @@ export function addRefreshTokenToWhitelist({
       hashedToken: hashToken(refreshToken),
       userId,
     },
-  })
+  });
 }
 
 // used to check if the token sent by the client is in the database.
-export function findRefreshTokenById(id: RefreshToken['id']) {
+export function findRefreshTokenById(id: RefreshToken["id"]) {
   return db.refreshToken.findUnique({
     where: {
       id,
     },
-  })
+  });
 }
 
 // soft delete tokens after usage.
-export function deleteRefreshToken(id: RefreshToken['id']) {
+export function deleteRefreshToken(id: RefreshToken["id"]) {
   return db.refreshToken.update({
     where: {
       id,
@@ -39,10 +39,10 @@ export function deleteRefreshToken(id: RefreshToken['id']) {
     data: {
       revoked: true,
     },
-  })
+  });
 }
 
-export function revokeTokens(userId: User['id']) {
+export function revokeTokens(userId: User["id"]) {
   return db.refreshToken.updateMany({
     where: {
       userId,
@@ -50,5 +50,5 @@ export function revokeTokens(userId: User['id']) {
     data: {
       revoked: true,
     },
-  })
+  });
 }

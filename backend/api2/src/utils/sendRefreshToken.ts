@@ -1,9 +1,9 @@
-import { Response } from 'express'
+import { Response } from "express";
 
 export function sendRefreshToken(res: Response, token: string) {
-  res.cookie('refresh_token', token, {
+  res.cookie("refresh_token", token, {
     httpOnly: true,
     sameSite: true,
-    path: '/api/v1/auth',
-  })
+    path: "/api/v1/auth",
+  });
 }

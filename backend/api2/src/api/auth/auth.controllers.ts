@@ -1,27 +1,27 @@
-import cuid from 'cuid'
-import { Response, Request, NextFunction } from 'express'
-import { TokensResponseInterface } from '../../interfaces/TokensResponse'
-import { generateTokens, verifyRefreshToken } from '../../utils/jwt'
-import { sendRefreshToken } from '../../utils/sendRefreshToken'
+import * as bcrypt from "bcrypt";
+import cuid from "cuid";
+import { NextFunction, Request, Response } from "express";
+import { TokensResponseInterface } from "../../interfaces/TokensResponse";
+import { hashToken } from "../../utils/hashToken";
+import { generateTokens, verifyRefreshToken } from "../../utils/jwt";
+import { sendRefreshToken } from "../../utils/sendRefreshToken";
 import {
   createUserByEmailAndPassword,
   findUserByEmail,
   findUserById,
-} from '../users/users.services'
+} from "../users/users.services";
 import {
   LoginInput,
   LoginQuerySchema,
   RefreshInput,
   RegisterInput,
   RegisterQuerySchema,
-} from './auth.schemas'
+} from "./auth.schemas";
 import {
   addRefreshTokenToWhitelist,
   deleteRefreshToken,
   findRefreshTokenById,
-} from './auth.services'
-import * as bcrypt from 'bcrypt'
-import { hashToken } from '../../utils/hashToken'
+} from "./auth.services";
 
 export async function register(
   req: Request<{}, TokensResponseInterface, RegisterInput, RegisterQuerySchema>,
@@ -29,36 +29,36 @@ export async function register(
   next: NextFunction
 ) {
   try {
-    const { email, password } = req.body
-    const { refreshTokenInCookie } = req.query
+    const { email, password } = req.body;
+    const { refreshTokenInCookie } = req.query;
 
-    const existingUser = await findUserByEmail(email)
+    const existingUser = await findUserByEmail(email);
 
     if (existingUser) {
-      res.status(400)
-      throw new Error('Email already in use.')
+      res.status(400);
+      throw new Error("Email already in use.");
     }
 
-    const user = await createUserByEmailAndPassword({ email, password })
+    const user = await createUserByEmailAndPassword({ email, password });
 
-    const jti = cuid()
-    const { accessToken, refreshToken } = generateTokens(user, jti)
+    const jti = cuid();
+    const { accessToken, refreshToken } = generateTokens(user, jti);
 
-    await addRefreshTokenToWhitelist({ jti, refreshToken, userId: user.id })
+    await addRefreshTokenToWhitelist({ jti, refreshToken, userId: user.id });
 
-    if (refreshTokenInCookie === 'true') {
-      sendRefreshToken(res, refreshToken)
+    if (refreshTokenInCookie === "true") {
+      sendRefreshToken(res, refreshToken);
       res.json({
         access_token: accessToken,
-      })
+      });
     } else {
       res.json({
         access_token: accessToken,
         refresh_token: refreshToken,
-      })
+      });
     }
   } catch (error) {
-    next(error)
+    next(error);
   }
 }
 
@@ -68,44 +68,44 @@ export async function login(
   next: NextFunction
 ) {
   try {
-    const { email, password } = req.body
-    const { refreshTokenInCookie } = req.query
+    const { email, password } = req.body;
+    const { refreshTokenInCookie } = req.query;
 
-    const existingUser = await findUserByEmail(email)
+    const existingUser = await findUserByEmail(email);
 
     if (!existingUser) {
-      res.status(401)
-      throw new Error('Invalid login credentials.')
+      res.status(401);
+      throw new Error("Invalid login credentials.");
     }
 
-    const validPassword = await bcrypt.compare(password, existingUser.password)
+    const validPassword = await bcrypt.compare(password, existingUser.password);
     if (!validPassword) {
-      res.status(401)
-      throw new Error('Invalid login credentials.')
+      res.status(401);
+      throw new Error("Invalid login credentials.");
     }
 
-    const jti = cuid()
-    const { accessToken, refreshToken } = generateTokens(existingUser, jti)
+    const jti = cuid();
+    const { accessToken, refreshToken } = generateTokens(existingUser, jti);
 
     await addRefreshTokenToWhitelist({
       jti,
       refreshToken,
       userId: existingUser.id,
-    })
+    });
 
-    if (refreshTokenInCookie === 'true') {
-      sendRefreshToken(res, refreshToken)
+    if (refreshTokenInCookie === "true") {
+      sendRefreshToken(res, refreshToken);
       res.json({
         access_token: accessToken,
-      })
+      });
     } else {
       res.json({
         access_token: accessToken,
         refresh_token: refreshToken,
-      })
+      });
     }
   } catch (error) {
-    next(error)
+    next(error);
   }
 }
 
@@ -115,66 +115,66 @@ export async function refreshTokens(
   next: NextFunction
 ) {
   try {
-    const refreshToken = req.body.refresh_token || req.cookies?.refresh_token
+    const refreshToken = req.body.refresh_token || req.cookies?.refresh_token;
     if (!refreshToken) {
-      res.status(400)
-      throw new Error('Missing refresh token.')
+      res.status(400);
+      throw new Error("Missing refresh token.");
     }
     const payload = verifyRefreshToken(refreshToken) as {
-      userId: string
-      jti: string
-    }
+      userId: string;
+      jti: string;
+    };
 
-    const savedRefreshToken = await findRefreshTokenById(payload.jti)
+    const savedRefreshToken = await findRefreshTokenById(payload.jti);
     if (!savedRefreshToken || savedRefreshToken.revoked === true) {
-      res.status(401)
-      throw new Error('Unauthorized')
+      res.status(401);
+      throw new Error("Unauthorized");
     }
 
-    const hashedToken = hashToken(refreshToken)
+    const hashedToken = hashToken(refreshToken);
     if (hashedToken !== savedRefreshToken.hashedToken) {
-      res.status(401)
-      throw new Error('Unauthorized')
+      res.status(401);
+      throw new Error("Unauthorized");
     }
-    const user = await findUserById(payload.userId)
+    const user = await findUserById(payload.userId);
 
     if (!user) {
-      res.status(401)
-      throw new Error('Unauthorized')
+      res.status(401);
+      throw new Error("Unauthorized");
     }
 
-    await deleteRefreshToken(savedRefreshToken.id)
-    const jti = cuid()
+    await deleteRefreshToken(savedRefreshToken.id);
+    const jti = cuid();
     const { accessToken, refreshToken: newRefreshToken } = generateTokens(
       user,
       jti
-    )
+    );
     await addRefreshTokenToWhitelist({
       jti,
       refreshToken: newRefreshToken,
       userId: user.id,
-    })
+    });
 
-    const { refreshTokenInCookie } = req.query
+    const { refreshTokenInCookie } = req.query;
 
-    if (refreshTokenInCookie === 'true') {
-      sendRefreshToken(res, newRefreshToken)
+    if (refreshTokenInCookie === "true") {
+      sendRefreshToken(res, newRefreshToken);
       res.json({
         access_token: accessToken,
-      })
+      });
     } else {
       res.json({
         access_token: accessToken,
         refresh_token: newRefreshToken,
-      })
+      });
     }
   } catch (error) {
     if (
       error instanceof Error &&
-      (error.name === 'TokenExpiredError' || error.name === 'JsonWebTokenError')
+      (error.name === "TokenExpiredError" || error.name === "JsonWebTokenError")
     ) {
-      res.status(401)
+      res.status(401);
     }
-    next(error)
+    next(error);
   }
 }

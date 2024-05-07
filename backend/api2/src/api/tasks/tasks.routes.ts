@@ -1,29 +1,29 @@
-import { Router } from 'express'
-import { paramsWithIdSchema } from '../../interfaces/ParamsWithId'
-import { requireUser, validateRequest } from '../../middlewares'
-import * as TasksController from './tasks.controllers'
-import { taskSchema } from './tasks.schemas'
+import { Router } from "express";
+import { paramsWithIdSchema } from "../../interfaces/ParamsWithId";
+import { requireUser, validateRequest } from "../../middlewares";
+import * as TasksController from "./tasks.controllers";
+import { taskSchema } from "./tasks.schemas";
 
-const router = Router()
+const router = Router();
 
-router.get('/', requireUser, TasksController.findAll)
+router.get("/", requireUser, TasksController.findAll);
 router.post(
-  '/',
+  "/",
   [requireUser, validateRequest({ body: taskSchema })],
   TasksController.createOne
-)
+);
 router.get(
-  '/:id',
+  "/:id",
   [requireUser, validateRequest({ params: paramsWithIdSchema })],
   TasksController.findOne
-)
+);
 router.put(
-  '/:id',
+  "/:id",
   [
     requireUser,
     validateRequest({ params: paramsWithIdSchema, body: taskSchema }),
   ],
   TasksController.updateOne
-)
+);
 
-export default router
+export default router;

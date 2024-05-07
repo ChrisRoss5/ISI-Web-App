@@ -1,32 +1,32 @@
-import { Router } from 'express'
-import { validateRequest } from '../../middlewares'
-import * as AuthControllers from './auth.controllers'
+import { Router } from "express";
+import { validateRequest } from "../../middlewares";
+import * as AuthControllers from "./auth.controllers";
 import {
   loginQuerySchema,
   loginSchema,
+  refreshTokenSchema,
   registerQuerySchema,
   registerSchema,
-  refreshTokenSchema,
-} from './auth.schemas'
+} from "./auth.schemas";
 
-const router = Router()
+const router = Router();
 
 router.post(
-  '/register',
+  "/register",
   validateRequest({ query: registerQuerySchema, body: registerSchema }),
   AuthControllers.register
-)
+);
 
 router.post(
-  '/login',
+  "/login",
   validateRequest({ query: loginQuerySchema, body: loginSchema }),
   AuthControllers.login
-)
+);
 
 router.post(
-  '/refreshToken',
+  "/refreshToken",
   validateRequest({ query: loginQuerySchema, body: refreshTokenSchema }),
   AuthControllers.refreshTokens
-)
+);
 
-export default router
+export default router;
