@@ -11,7 +11,7 @@
     "skipLibCheck": true,
     "baseUrl": "src",
     "typeRoots": ["./typings", "./node_modules/@types"],
-    "types": ["express", "jest"]
+    "types": ["express", "jest", "node"]
   },
-  "include": ["./*.js", "src/**/*.ts", "test/**/*.ts"]
+  "include": ["./*.js", "prisma/*.ts", "src/**/*.ts", "test/**/*.ts"]
 }

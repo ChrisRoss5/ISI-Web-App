@@ -3,7 +3,14 @@
   "version": "1.0.0",
   "description": " A basic starter for an express.js auth with Typescript",
   "main": "src/index.ts",
+  "prisma": {
+    "seed": "ts-node prisma/seed.ts"
+  },
   "scripts": {
+    "prisma-generate": "prisma generate",
+    "prisma-migrate": "prisma migrate dev",
+    "prisma-studio": "prisma studio",
+    "prisma-seed": "npx prisma db seed",
     "start": "ts-node src/index.ts",
     "dev": "nodemon src/index.ts",
     "build": "tsc",
@@ -35,7 +42,7 @@
     "@types/jest": "^29.2.4",
     "@types/jsonwebtoken": "^8.5.9",
     "@types/morgan": "^1.9.3",
-    "@types/node": "^18.7.23",
+    "@types/node": "^18.19.33",
     "@types/supertest": "^2.0.12",
     "@typescript-eslint/eslint-plugin": "^5.38.1",
     "@typescript-eslint/parser": "^5.38.1",

@@ -1,93 +1,93 @@
-import { Task } from "@prisma/client";
+import { Resource } from "@prisma/client";
 import { NextFunction, Request, Response } from "express";
 import { ParsedToken } from "../../../typings/token";
 import { db } from "../../db";
 import { ParamsWithId } from "../../interfaces/ParamsWithId";
-import { TaskInput } from "./tasks.schemas";
+import { ResourceInput } from "./resources.schemas";
 
 export async function findAll(
   req: Request,
-  res: Response<Task[]>,
+  res: Response<Resource[]>,
   next: NextFunction
 ) {
   try {
-    const tasks = await db.task.findMany();
-    res.json(tasks);
+    const resources = await db.resource.findMany();
+    res.json(resources);
   } catch (error) {
     next(error);
   }
 }
 
 export async function createOne(
-  req: Request<{}, Task, TaskInput>,
-  res: Response<Task>,
+  req: Request<{}, Resource, ResourceInput>,
+  res: Response<Resource>,
   next: NextFunction
 ) {
   try {
     const user: ParsedToken = req.user;
 
-    const taskData = {
+    const resourceData = {
       ...req.body,
       userId: user.userId,
     };
 
-    const task = await db.task.create({
-      data: taskData,
+    const resource = await db.resource.create({
+      data: resourceData,
     });
-    res.status(201).json(task);
+    res.status(201).json(resource);
   } catch (error) {
     next(error);
   }
 }
 
 export async function findOne(
-  req: Request<ParamsWithId, Task, {}>,
-  res: Response<Task>,
+  req: Request<ParamsWithId, Resource, {}>,
+  res: Response<Resource>,
   next: NextFunction
 ) {
   try {
     const user: ParsedToken = req.user;
 
-    const task = await db.task.findUnique({
+    const resource = await db.resource.findUnique({
       where: {
         id: req.params.id,
       },
     });
-    if (!task || task.userId !== user.userId) {
+    if (!resource || resource.userId !== user.userId) {
       res.status(404);
-      throw new Error("Task not found.");
+      throw new Error("Resource not found.");
     }
 
-    res.json(task);
+    res.json(resource);
   } catch (error) {
     next(error);
   }
 }
 
 export async function updateOne(
-  req: Request<ParamsWithId, Task, TaskInput>,
-  res: Response<Task>,
+  req: Request<ParamsWithId, Resource, ResourceInput>,
+  res: Response<Resource>,
   next: NextFunction
 ) {
   try {
     const user: ParsedToken = req.user;
 
-    const task = await db.task.findUnique({
+    const resource = await db.resource.findUnique({
       where: {
         id: req.params.id,
       },
     });
-    if (!task || task.userId !== user.userId) {
+    if (!resource || resource.userId !== user.userId) {
       res.status(404);
-      throw new Error("Task not found.");
+      throw new Error("Resource not found.");
     }
 
-    const newTask = await db.task.update({
+    const newResource = await db.resource.update({
       where: { id: req.params.id },
       data: { ...req.body, userId: user.userId },
     });
 
-    res.json(newTask);
+    res.json(newResource);
   } catch (error) {
     next(error);
   }

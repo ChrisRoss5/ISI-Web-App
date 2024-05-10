@@ -2,7 +2,7 @@ import { db } from "./db";
 import { globalUserCredentials } from "./globalSetup";
 
 const teardown = async () => {
-  await db.task.deleteMany();
+  await db.resource.deleteMany();
 
   await db.user.delete({
     where: {

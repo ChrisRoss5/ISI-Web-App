@@ -33,7 +33,7 @@ describe("POST /api/v1/auth/register", () => {
 
   it("responds with an error if password is missing ", async () => {
     const payload = {
-      email: "mihai@mihai.com",
+      email: "k1k1@k1k1.com",
     };
     const response = await request(app)
       .post("/api/v1/auth/register")
@@ -46,7 +46,7 @@ describe("POST /api/v1/auth/register", () => {
 
   it("responds with an access_token and refresh_token", async () => {
     const payload = {
-      email: "mihai@mihai.com",
+      email: "k1k1@k1k1.com",
       password: "Test1@123",
     };
 
@@ -65,7 +65,7 @@ describe("POST /api/v1/auth/register", () => {
 
   it("responds with an access_token and refresh_token in cookie", async () => {
     const payload = {
-      email: "mihai2@mihai2.com",
+      email: "k1k12@k1k12.com",
       password: "Test1@123",
     };
 
@@ -109,7 +109,7 @@ describe("POST /api/v1/auth/login", () => {
 
   it("responds with an error if password is missing ", async () => {
     const payload = {
-      email: "mihai@mihai.com",
+      email: "k1k1@k1k1.com",
     };
     const response = await request(app)
       .post("/api/v1/auth/login")
@@ -189,7 +189,7 @@ describe("POST /api/v1/auth/login", () => {
 
 describe("POST /api/v1/auth/refreshToken", () => {
   const userCredentials = {
-    email: "mihai@refresh.com",
+    email: "k1k1@refresh.com",
     password: "Test1@123",
   };
 

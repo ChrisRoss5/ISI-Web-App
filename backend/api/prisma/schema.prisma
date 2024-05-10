@@ -17,7 +17,7 @@ model User {
   refreshTokens RefreshToken[]
   createdAt     DateTime       @default(now())
   updatedAt     DateTime       @updatedAt
-  tasks         Task[]
+  resources     Resource[]
 }
 
 model RefreshToken {
@@ -30,10 +30,16 @@ model RefreshToken {
   updatedAt   DateTime @updatedAt
 }
 
-model Task {
-  id        String  @id @default(cuid())
-  content   String
-  favourite Boolean
-  user      User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId    String
+model Resource {
+  id          String    @id @default(cuid())
+  location    String
+  indicator   String
+  subject     String
+  measure     String
+  frequency   String
+  time        String
+  value       Float
+  flagCodes   String?
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId      String
 }

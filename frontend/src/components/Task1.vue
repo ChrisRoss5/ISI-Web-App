@@ -6,7 +6,7 @@ const file = ref<File | null | undefined>();
 const submitFile = () => {
   const formData = new FormData();
   formData.append("file", file.value!);
-  fetch("http://localhost:8080/api/upload", {
+  fetch(import.meta.env.API_URL + "/resources", {
     method: "POST",
     body: formData,
   })

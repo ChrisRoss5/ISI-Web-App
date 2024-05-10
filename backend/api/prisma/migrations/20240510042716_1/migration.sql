@@ -18,6 +18,21 @@ CREATE TABLE "RefreshToken" (
     CONSTRAINT "RefreshToken_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User" ("id") ON DELETE CASCADE ON UPDATE CASCADE
 );
 
+-- CreateTable
+CREATE TABLE "Resource" (
+    "id" TEXT NOT NULL PRIMARY KEY,
+    "location" TEXT NOT NULL,
+    "indicator" TEXT NOT NULL,
+    "subject" TEXT NOT NULL,
+    "measure" TEXT NOT NULL,
+    "frequency" TEXT NOT NULL,
+    "time" TEXT NOT NULL,
+    "value" REAL NOT NULL,
+    "flagCodes" TEXT,
+    "userId" TEXT NOT NULL,
+    CONSTRAINT "Resource_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User" ("id") ON DELETE CASCADE ON UPDATE CASCADE
+);
+
 -- CreateIndex
 CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 

@@ -4,14 +4,14 @@ import { generateAccessToken } from "./utils/jwt";
 
 export const globalUserCredentials = {
   id: "cl9fpgbug00032e6djr6s4ydf",
-  email: "mihai@test.com",
+  email: "k1k1@test.com",
   password: "Test1@123",
 };
 
-export const tasks = [
-  { content: "Task1", favourite: false },
-  { content: "Task2", favourite: true },
-  { content: "Task3", favourite: false },
+export const resources = [
+  { content: "Resource1", favourite: false },
+  { content: "Resource2", favourite: true },
+  { content: "Resource3", favourite: false },
 ];
 
 const setup = async () => {
@@ -28,11 +28,11 @@ const setup = async () => {
   const validToken = generateAccessToken({ userId: user.id }, "15m");
   process.env.VALID_ACCESS_TOKEN_FOR_TESTING = validToken;
 
-  // tasks setup
-  for (const task of tasks) {
-    await db.task.create({
-      // data: { ...task, user: { connect: { id: user.id } } },
-      data: { ...task, userId: user.id },
+  // resources setup
+  for (const resource of resources) {
+    await db.resource.create({
+      // data: { ...resource, user: { connect: { id: user.id } } },
+      data: { ...resource, userId: user.id },
     });
   }
 };
