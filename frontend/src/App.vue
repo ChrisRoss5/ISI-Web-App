@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { defineAsyncComponent } from "vue";
 
-const resources = [
+const tasks = [
   {
     description:
       "A REST API interface that includes a service that will be called by the POST method and send an XML file to save a new entity in the system that will be validated using an XSD file.",
@@ -50,20 +50,20 @@ const resources = [
       >
     </div>
     <div
-      v-for="(resource, i) in resources"
+      v-for="(task, i) in tasks"
       :key="i"
       class="collapse collapse-arrow bg-base-200"
     >
       <input type="radio" name="my-accordion-2" :checked="i === 0" />
       <div class="collapse-title">
-        <div class="text-lg font-bold">Resource {{ i + 1 }}</div>
-        {{ resource.description }}
+        <div class="text-lg font-bold">Task {{ i + 1 }}</div>
+        {{ task.description }}
       </div>
-      <div class="collapse-content">
+      <div class="collapse-content min-w-0">
         <component
           :is="
             defineAsyncComponent(
-              () => import(`./components/Resource${i + 1}.vue`),
+              () => import(/* @vite-ignore */ `./components/Task${i + 1}.vue`),
             )
           "
         ></component>

@@ -1,22 +1,12 @@
 <script setup lang="ts">
 import { ref } from "vue";
 
+
 const file = ref<File | null | undefined>();
 
 const submitFile = () => {
   const formData = new FormData();
   formData.append("file", file.value!);
-  fetch(import.meta.env.API_URL + "/resources", {
-    method: "POST",
-    body: formData,
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      console.log(data);
-    })
-    .catch((error) => {
-      console.error("Error:", error);
-    });
 };
 
 const handleFileChange = (event: Event) => {
