@@ -1,12 +1,17 @@
 <script setup lang="ts">
 import { ref } from "vue";
-
+import { useAxiosStore } from "../stores/axios";
 
 const file = ref<File | null | undefined>();
+const axiosStore = useAxiosStore();
 
-const submitFile = () => {
-  const formData = new FormData();
-  formData.append("file", file.value!);
+const submitFile = async () => {
+  try {
+    const response = await axiosStore.saveResourceFromXMLwithXSDvalidation(file.value!);
+    console.log(response);
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 const handleFileChange = (event: Event) => {

@@ -13,13 +13,13 @@
     "prisma-seed": "npx prisma db seed",
     "start": "ts-node src/index.ts",
     "dev": "nodemon src/index.ts",
+    "debug": "set DEBUG=express:* & nodemon src/index.ts",
     "build": "tsc",
     "lint": "eslint --fix src",
     "pretest": "dotenv -e .env.test -- prisma migrate reset --force",
     "test": "dotenv -e .env.test jest -- --runInBand"
   },
   "keywords": [],
-  "author": "Kristijan Rosandić",
   "license": "MIT",
   "dependencies": {
     "@prisma/client": "^4.4.0",
@@ -32,6 +32,9 @@
     "helmet": "^6.0.0",
     "jsonwebtoken": "^8.5.1",
     "morgan": "^1.10.0",
+    "multer": "^1.4.5-lts.1",
+    "xml-js": "^1.6.11",
+    "xsd-schema-validator": "^0.9.0",
     "zod": "^3.19.1"
   },
   "devDependencies": {
@@ -42,6 +45,7 @@
     "@types/jest": "^29.2.4",
     "@types/jsonwebtoken": "^8.5.9",
     "@types/morgan": "^1.9.3",
+    "@types/multer": "^1.4.11",
     "@types/node": "^18.19.33",
     "@types/supertest": "^2.0.12",
     "@typescript-eslint/eslint-plugin": "^5.38.1",

@@ -51,7 +51,7 @@ export const useAxiosStore = defineStore("axios", () => {
   const saveResourceFromXMLwithXSDvalidation = (xmlFile: File) => {
     const formData = new FormData();
     formData.append("file", xmlFile);
-    return client.post("/xml-xsd", formData, {
+    return client.post("/resources/xml-xsd", formData, {
       headers: {
         "Content-Type": "multipart/form-data",
       },
