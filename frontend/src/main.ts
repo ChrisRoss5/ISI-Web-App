@@ -11,6 +11,6 @@ app.mount("#app");
 
 declare module 'axios' {
   export interface AxiosRequestConfig {
-    authorization: boolean;
+    authorization?: boolean;
   }
 }

@@ -12,6 +12,11 @@ router.post(
   [requireUser, validateRequest({ body: resourceSchema })],
   ResourcesController.createOne
 );
+/* router.post(
+  "/xml-xsd",
+  [requireUser, validateRequestWithXSD],
+  ResourcesController.createOne
+); */
 router.get(
   "/:id",
   [requireUser, validateRequest({ params: paramsWithIdSchema })],

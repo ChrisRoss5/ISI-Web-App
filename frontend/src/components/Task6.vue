@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import { ref } from "vue";
+import { useAxiosStore } from "../stores/axios";
 import { useAuthStore } from "../stores/auth";
 
+const axiosStore = useAxiosStore();
 const authStore = useAuthStore();
 const email = ref("");
 const password = ref("");
@@ -9,7 +11,7 @@ const responseData = ref("");
 
 const handleLogin = async () => {
   try {
-    const response = await authStore.login({
+    const response = await axiosStore.login({
       email: email.value,
       password: password.value,
     });
@@ -31,7 +33,7 @@ const handleLogout = async () => {
 
 const handleUserProfile = async () => {
   try {
-    const response = await authStore.getProfile();
+    const response = await axiosStore.getProfile();
     console.log(response);
     responseData.value = JSON.stringify(response.data, null, 2);
   } catch (error: any) {

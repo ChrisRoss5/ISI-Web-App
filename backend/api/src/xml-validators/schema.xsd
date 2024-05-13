@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+  <xs:element name="resource">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="location" type="xs:string" />
+        <xs:element name="indicator" type="xs:string" />
+        <xs:element name="subject" type="xs:string" />
+        <xs:element name="measure" type="xs:string" />
+        <xs:element name="frequency" type="xs:string" />
+        <xs:element name="time" type="xs:string" />
+        <xs:element name="value" type="xs:decimal" />
+        <xs:element name="flagCodes" type="xs:string" minOccurs="0" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
