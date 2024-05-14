@@ -44,7 +44,7 @@ describe("POST /api/v1/auth/register", () => {
     expect(response.statusCode).toBe(400);
   });
 
-  it("responds with an access_token and refresh_token", async () => {
+  it("responds with an accessToken and refreshToken", async () => {
     const payload = {
       email: "k1k1@k1k1.com",
       password: "Test1@123",
@@ -57,13 +57,13 @@ describe("POST /api/v1/auth/register", () => {
       .send(payload);
 
     expect(response.statusCode).toBe(200);
-    expect(response.body).toHaveProperty("access_token");
-    expect(response.body).toHaveProperty("refresh_token");
-    expect(response.body.access_token).toEqual(expect.any(String));
-    expect(response.body.refresh_token).toEqual(expect.any(String));
+    expect(response.body).toHaveProperty("accessToken");
+    expect(response.body).toHaveProperty("refreshToken");
+    expect(response.body.accessToken).toEqual(expect.any(String));
+    expect(response.body.refreshToken).toEqual(expect.any(String));
   });
 
-  it("responds with an access_token and refresh_token in cookie", async () => {
+  it("responds with an accessToken and refreshToken in cookie", async () => {
     const payload = {
       email: "k1k12@k1k12.com",
       password: "Test1@123",
@@ -76,10 +76,10 @@ describe("POST /api/v1/auth/register", () => {
       .send(payload);
 
     expect(response.statusCode).toBe(200);
-    expect(response.body).toHaveProperty("access_token");
+    expect(response.body).toHaveProperty("accessToken");
     expect(Array.isArray(response.headers["set-cookie"])).toBe(true);
-    expect(response.headers["set-cookie"][0]).toContain("refresh_token");
-    expect(response.body.access_token).toEqual(expect.any(String));
+    expect(response.headers["set-cookie"][0]).toContain("refreshToken");
+    expect(response.body.accessToken).toEqual(expect.any(String));
   });
 });
 
@@ -152,7 +152,7 @@ describe("POST /api/v1/auth/login", () => {
     expect(response.body.message).toBe("Invalid login credentials.");
   });
 
-  it("responds with an access_token and refresh_token", async () => {
+  it("responds with an accessToken and refreshToken", async () => {
     const response = await request(app)
       .post("/api/v1/auth/login")
       .set("Accept", "application/json")
@@ -163,13 +163,13 @@ describe("POST /api/v1/auth/login", () => {
       });
 
     expect(response.statusCode).toBe(200);
-    expect(response.body).toHaveProperty("access_token");
-    expect(response.body).toHaveProperty("refresh_token");
-    expect(response.body.access_token).toEqual(expect.any(String));
-    expect(response.body.refresh_token).toEqual(expect.any(String));
+    expect(response.body).toHaveProperty("accessToken");
+    expect(response.body).toHaveProperty("refreshToken");
+    expect(response.body.accessToken).toEqual(expect.any(String));
+    expect(response.body.refreshToken).toEqual(expect.any(String));
   });
 
-  it("responds with an access_token and refresh_token in cookie", async () => {
+  it("responds with an accessToken and refreshToken in cookie", async () => {
     const response = await request(app)
       .post("/api/v1/auth/login?refreshTokenInCookie=true")
       .set("Accept", "application/json")
@@ -180,10 +180,10 @@ describe("POST /api/v1/auth/login", () => {
       });
 
     expect(response.statusCode).toBe(200);
-    expect(response.body).toHaveProperty("access_token");
+    expect(response.body).toHaveProperty("accessToken");
     expect(Array.isArray(response.headers["set-cookie"])).toBe(true);
-    expect(response.headers["set-cookie"][0]).toContain("refresh_token");
-    expect(response.body.access_token).toEqual(expect.any(String));
+    expect(response.headers["set-cookie"][0]).toContain("refreshToken");
+    expect(response.body.accessToken).toEqual(expect.any(String));
   });
 });
 
@@ -234,7 +234,7 @@ describe("POST /api/v1/auth/refreshToken", () => {
     });
   });
 
-  it("responds with error if refresh_token is missing ( body case )", async () => {
+  it("responds with error if refreshToken is missing ( body case )", async () => {
     const response = await request(app)
       .post("/api/v1/auth/refreshToken")
       .set("Accept", "application/json")
@@ -245,7 +245,7 @@ describe("POST /api/v1/auth/refreshToken", () => {
     expect(response.body.message).toBe("Missing refresh token.");
   });
 
-  it("responds with error if refresh_token is missing ( cookie case )", async () => {
+  it("responds with error if refreshToken is missing ( cookie case )", async () => {
     const response = await request(app)
       .post("/api/v1/auth/refreshToken")
       .set("Accept", "application/json")
@@ -262,7 +262,7 @@ describe("POST /api/v1/auth/refreshToken", () => {
       .post("/api/v1/auth/refreshToken")
       .set("Accept", "application/json")
       .expect("Content-Type", /json/)
-      .send({ refresh_token: expiredRefreshToken });
+      .send({ refreshToken: expiredRefreshToken });
 
     expect(response.statusCode).toBe(401);
     expect(response.body).toHaveProperty("message");
@@ -274,7 +274,7 @@ describe("POST /api/v1/auth/refreshToken", () => {
     const response = await request(app)
       .post("/api/v1/auth/refreshToken")
       .set("Accept", "application/json")
-      .set("Cookie", [`refresh_token=${expiredRefreshToken}`])
+      .set("Cookie", [`refreshToken=${expiredRefreshToken}`])
       .expect("Content-Type", /json/);
 
     expect(response.statusCode).toBe(401);
@@ -286,7 +286,7 @@ describe("POST /api/v1/auth/refreshToken", () => {
       .post("/api/v1/auth/refreshToken")
       .set("Accept", "application/json")
       .expect("Content-Type", /json/)
-      .send({ refresh_token: "1231231a" });
+      .send({ refreshToken: "1231231a" });
 
     expect(response.statusCode).toBe(401);
     expect(response.body).toHaveProperty("message");
@@ -297,7 +297,7 @@ describe("POST /api/v1/auth/refreshToken", () => {
     const response = await request(app)
       .post("/api/v1/auth/refreshToken")
       .set("Accept", "application/json")
-      .set("Cookie", [`refresh_token=${refreshTokenNotPresentInDb}`])
+      .set("Cookie", [`refreshToken=${refreshTokenNotPresentInDb}`])
       .expect("Content-Type", /json/);
 
     expect(response.statusCode).toBe(401);
@@ -305,46 +305,46 @@ describe("POST /api/v1/auth/refreshToken", () => {
     expect(response.body.message).toBe("Unauthorized");
   });
 
-  it("responds with an access_token and refresh_token ( body case )", async () => {
+  it("responds with an accessToken and refreshToken ( body case )", async () => {
     const response = await request(app)
       .post("/api/v1/auth/refreshToken")
       .set("Accept", "application/json")
       .expect("Content-Type", /json/)
-      .send({ refresh_token: validRefreshToken });
+      .send({ refreshToken: validRefreshToken });
 
     expect(response.statusCode).toBe(200);
-    expect(response.body).toHaveProperty("access_token");
-    expect(response.body).toHaveProperty("refresh_token");
-    expect(response.body.access_token).toEqual(expect.any(String));
-    expect(response.body.refresh_token).toEqual(expect.any(String));
-    validRefreshToken = response.body.refresh_token;
+    expect(response.body).toHaveProperty("accessToken");
+    expect(response.body).toHaveProperty("refreshToken");
+    expect(response.body.accessToken).toEqual(expect.any(String));
+    expect(response.body.refreshToken).toEqual(expect.any(String));
+    validRefreshToken = response.body.refreshToken;
   });
 
-  it("responds with an access_token and refresh_token ( cookie case )", async () => {
+  it("responds with an accessToken and refreshToken ( cookie case )", async () => {
     const response = await request(app)
       .post("/api/v1/auth/refreshToken")
       .set("Accept", "application/json")
-      .set("Cookie", [`refresh_token=${validRefreshToken}`])
+      .set("Cookie", [`refreshToken=${validRefreshToken}`])
       .expect("Content-Type", /json/);
 
     expect(response.statusCode).toBe(200);
-    expect(response.body).toHaveProperty("access_token");
-    expect(response.body).toHaveProperty("refresh_token");
-    expect(response.body.access_token).toEqual(expect.any(String));
-    expect(response.body.refresh_token).toEqual(expect.any(String));
-    validRefreshToken = response.body.refresh_token;
+    expect(response.body).toHaveProperty("accessToken");
+    expect(response.body).toHaveProperty("refreshToken");
+    expect(response.body.accessToken).toEqual(expect.any(String));
+    expect(response.body.refreshToken).toEqual(expect.any(String));
+    validRefreshToken = response.body.refreshToken;
   });
-  it("responds with an access_token and refresh_token in cookie", async () => {
+  it("responds with an accessToken and refreshToken in cookie", async () => {
     const response = await request(app)
       .post("/api/v1/auth/refreshToken?refreshTokenInCookie=true")
       .set("Accept", "application/json")
-      .set("Cookie", [`refresh_token=${validRefreshToken}`])
+      .set("Cookie", [`refreshToken=${validRefreshToken}`])
       .expect("Content-Type", /json/);
 
     expect(response.statusCode).toBe(200);
-    expect(response.body).toHaveProperty("access_token");
+    expect(response.body).toHaveProperty("accessToken");
     expect(Array.isArray(response.headers["set-cookie"])).toBe(true);
-    expect(response.headers["set-cookie"][0]).toContain("refresh_token");
-    expect(response.body.access_token).toEqual(expect.any(String));
+    expect(response.headers["set-cookie"][0]).toContain("refreshToken");
+    expect(response.body.accessToken).toEqual(expect.any(String));
   });
 });

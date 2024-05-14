@@ -49,12 +49,12 @@ export async function register(
     if (refreshTokenInCookie === "true") {
       sendRefreshToken(res, refreshToken);
       res.json({
-        access_token: accessToken,
+        accessToken: accessToken,
       });
     } else {
       res.json({
-        access_token: accessToken,
-        refresh_token: refreshToken,
+        accessToken: accessToken,
+        refreshToken: refreshToken,
       });
     }
   } catch (error) {
@@ -96,12 +96,12 @@ export async function login(
     if (refreshTokenInCookie === "true") {
       sendRefreshToken(res, refreshToken);
       res.json({
-        access_token: accessToken,
+        accessToken: accessToken,
       });
     } else {
       res.json({
-        access_token: accessToken,
-        refresh_token: refreshToken,
+        accessToken: accessToken,
+        refreshToken: refreshToken,
       });
     }
   } catch (error) {
@@ -115,7 +115,7 @@ export async function refreshTokens(
   next: NextFunction
 ) {
   try {
-    const refreshToken = req.body.refresh_token || req.cookies?.refresh_token;
+    const refreshToken = req.body.refreshToken || req.cookies?.refreshToken;
     if (!refreshToken) {
       res.status(400);
       throw new Error("Missing refresh token.");
@@ -160,12 +160,12 @@ export async function refreshTokens(
     if (refreshTokenInCookie === "true") {
       sendRefreshToken(res, newRefreshToken);
       res.json({
-        access_token: accessToken,
+        accessToken: accessToken,
       });
     } else {
       res.json({
-        access_token: accessToken,
-        refresh_token: newRefreshToken,
+        accessToken: accessToken,
+        refreshToken: newRefreshToken,
       });
     }
   } catch (error) {

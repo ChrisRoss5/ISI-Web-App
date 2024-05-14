@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import { useAxiosStore } from "../stores/axios";
 import { useAuthStore } from "../stores/auth";
+import { useAxiosStore } from "../stores/axios";
 
 const axiosStore = useAxiosStore();
 const authStore = useAuthStore();
@@ -20,8 +20,8 @@ const handleLoginOrRegister = async () => {
     console.log(response);
     responseData.value = JSON.stringify(response.data, null, 2);
     authStore.onLogin({
-      accessToken: response.data.access_token,
-      refreshToken: response.data.refresh_token,
+      accessToken: response.data.accessToken,
+      refreshToken: response.data.refreshToken,
     });
   } catch (error: any) {
     handleError(error);

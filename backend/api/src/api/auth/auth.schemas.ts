@@ -37,7 +37,7 @@ export type LoginInput = z.infer<typeof loginSchema>;
 export type LoginQuerySchema = z.infer<typeof loginQuerySchema>;
 
 export const refreshTokenSchema = z.object({
-  refresh_token: z.string().optional(),
+  refreshToken: z.string().optional(),
 });
 
 export type RefreshInput = z.infer<typeof refreshTokenSchema>;
