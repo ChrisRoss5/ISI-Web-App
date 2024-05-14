@@ -1,6 +1,6 @@
 import type { Prisma, User } from "@prisma/client";
 import * as bcrypt from "bcrypt";
-import { db } from "../../db";
+import { db } from "../../../db";
 
 export function findUserByEmail(email: string) {
   return db.user.findUnique({

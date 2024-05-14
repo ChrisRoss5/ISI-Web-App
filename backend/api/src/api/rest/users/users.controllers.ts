@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { ParsedToken } from "../../../typings/token";
+import { ParsedToken } from "../../../../typings/token";
 import { findUserById } from "./users.services";
 
 export async function me(req: Request, res: Response, next: NextFunction) {

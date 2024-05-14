@@ -1,6 +1,6 @@
 import { RefreshToken, User } from "@prisma/client";
-import { db } from "../../db";
-import { hashToken } from "../../utils/hashToken";
+import { db } from "../../../db";
+import { hashToken } from "../../../utils/hashToken";
 
 // used when we create a refresh token.
 export function addRefreshTokenToWhitelist({

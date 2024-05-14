@@ -30,7 +30,8 @@ export const configSchema = z.object({
   jwt_refresh_lifetime: z
     .string()
     .min(1, getErrorMessage(EnvNames.JWT_REFRESH_LIFETIME)),
-  port: z.number().default(5000),
+  rest_port: z.number(),
+  soap_port: z.number()
 });
 
 export type Config = z.infer<typeof configSchema>;
@@ -42,7 +43,8 @@ const envConfig: Config = {
   jwt_refresh_secret: process.env.JWT_REFRESH_SECRET || "",
   jwt_access_lifetime: process.env.JWT_ACCESS_LIFETIME || "",
   jwt_refresh_lifetime: process.env.JWT_REFRESH_LIFETIME || "",
-  port: Number(process.env.PORT) || 5000,
+  rest_port: Number(process.env.REST_PORT),
+  soap_port: Number(process.env.SOAP_PORT),
 };
 
 export const config = configSchema.parse(envConfig);

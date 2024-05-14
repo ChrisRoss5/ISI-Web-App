@@ -4,6 +4,6 @@ export function sendRefreshToken(res: Response, token: string) {
   res.cookie("refreshToken", token, {
     httpOnly: true,
     sameSite: true,
-    path: "/api/v1/auth",
+    path: "/api/rest/auth",
   });
 }

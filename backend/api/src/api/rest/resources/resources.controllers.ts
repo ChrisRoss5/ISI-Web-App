@@ -1,8 +1,8 @@
 import { Resource } from "@prisma/client";
 import { NextFunction, Request, Response } from "express";
-import { ParsedToken } from "../../../typings/token";
-import { db } from "../../db";
-import { ParamsWithId } from "../../interfaces/ParamsWithId";
+import { ParsedToken } from "../../../../typings/token";
+import { db } from "../../../db";
+import { ParamsWithId } from "../../../interfaces/ParamsWithId";
 import { ResourceInput } from "./resources.schemas";
 
 export async function findAll(

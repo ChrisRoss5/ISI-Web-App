@@ -1,8 +1,8 @@
 import { exec } from "child_process";
 import { NextFunction, Request, Response } from "express";
-import fs from "fs"; // Import the 'fs' module
+import fs from "fs";
 import path from "path";
-import { xml2js } from "utils/xml2js";
+import { xml2js } from "../utils/xml2js";
 
 /*
 https://relaxng.org/jclark/jing.html

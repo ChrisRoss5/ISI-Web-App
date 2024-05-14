@@ -72,7 +72,7 @@ export function deserializeUser(
     console.log("ERROR:: ", error, req.path);
     if (
       error instanceof TokenExpiredError &&
-      req.path !== "/api/v1/auth/refreshToken"
+      req.path !== "/api/rest/auth/refreshToken"
     ) {
       res.status(401);
       next(new Error("TokenExpiredError"));

@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { validateRequest } from "../../middlewares";
+import { validateRequest } from "../../../middlewares";
 import * as AuthControllers from "./auth.controllers";
 import {
   loginQuerySchema,

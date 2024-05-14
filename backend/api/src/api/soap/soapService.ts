@@ -2,8 +2,8 @@ import * as dom from "@xmldom/xmldom";
 import fs from "fs";
 import * as convert from "xml-js";
 import * as xpath from "xpath";
-import { db } from "../db";
-import { xml2js } from "../utils/xml2js";
+import { db } from "../../db";
+import { xml2js } from "../../utils/xml2js";
 
 const parser = new dom.DOMParser();
 

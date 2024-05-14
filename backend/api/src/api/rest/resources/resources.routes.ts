@@ -1,9 +1,9 @@
 import { Router } from "express";
 import multer from "multer";
-import { paramsWithIdSchema } from "../../interfaces/ParamsWithId";
-import { requireUser, validateRequest } from "../../middlewares";
-import validateRequestXMLWithRNG from "../../xml-validators/rng";
-import validateRequestXMLWithXSD from "../../xml-validators/xsd";
+import { paramsWithIdSchema } from "../../../interfaces/ParamsWithId";
+import { requireUser, validateRequest } from "../../../middlewares";
+import validateRequestXMLWithRNG from "../../../xml-validators/rng";
+import validateRequestXMLWithXSD from "../../../xml-validators/xsd";
 import * as ResourcesController from "./resources.controllers";
 import { resourceSchema } from "./resources.schemas";
 

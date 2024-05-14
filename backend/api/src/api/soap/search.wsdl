@@ -92,10 +92,10 @@
   <!-- SERVICE  -->
   <wsdl:service name="SearchService">
     <wsdl:port name="SearchServiceSoapPort" binding="tns:SearchServiceSoapBinding">
-      <soap:address location="http://localhost:5000/soap" />
+      <soap:address location="http://localhost:5001/api/soap" />
     </wsdl:port>
     <wsdl:port name="SearchServiceSoap12Port" binding="tns:SearchServiceSoap12Binding">
-      <soap12:address location="http://localhost:5000/soap" />
+      <soap12:address location="http://localhost:5001/api/soap" />
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>
