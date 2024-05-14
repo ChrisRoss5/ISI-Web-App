@@ -7,15 +7,15 @@ interface EmailPassword {
   password: string;
 }
 
-const API_URL = import.meta.env.VITE_API_URL;
-const REFRESH_TOKEN_URL = `${API_URL}/auth/refreshToken`;
+const REST_API_URL = import.meta.env.VITE_REST_API_URL;
+const REFRESH_TOKEN_URL = `${REST_API_URL}/auth/refreshToken`;
 
 export const useAxiosStore = defineStore("axios", () => {
   const authStore = useAuthStore();
 
   const client = createAxiosClient({
     options: {
-      baseURL: API_URL,
+      baseURL: REST_API_URL,
       timeout: 300000,
       headers: {
         "Content-Type": "application/json",

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- <definitions> must be the root of the WSDL document -->
+<wsdl:definitions targetNamespace="http://tempuri.org/"
+  xmlns:s="http://www.w3.org/2001/XMLSchema"
+  xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/"
+  xmlns:http="http://schemas.xmlsoap.org/wsdl/http/"
+  xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/"
+  xmlns:tns="http://tempuri.org/"
+  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+  xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/"
+  xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+
+  <!-- WSDL TYPES: definition of the data types that are used in the web service -->
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="SearchRequest">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="searchTerm" type="s:string" />
+            <s:element name="searchProperty" type="s:string" minOccurs="0" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SearchResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="resource">
+              <s:complexType>
+                <s:sequence>
+                  <s:element name="location" type="s:string" />
+                  <s:element name="indicator" type="s:string" />
+                  <s:element name="subject" type="s:string" />
+                  <s:element name="measure" type="s:string" />
+                  <s:element name="frequency" type="s:string" />
+                  <s:element name="time" type="s:string" />
+                  <s:element name="value" type="s:decimal" />
+                  <s:element name="flagCodes" type="s:string" minOccurs="0" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+
+  <!-- MESSAGES: defines the data being exchanged between the service and client -->
+  <wsdl:message name="SearchSoapIn">
+    <wsdl:part name="parameters" element="tns:SearchRequest" />
+  </wsdl:message>
+  <wsdl:message name="SearchSoapOut">
+    <wsdl:part name="parameters" element="tns:SearchResponse" />
+  </wsdl:message>
+
+  <!-- PORT TYPES: defines the complete communication operation (one way/round trip) -->
+  <wsdl:portType name="SearchSoapPort">
+    <!-- The operation name must be the same as the one specified in the service object -->
+    <wsdl:operation name="Search">
+      <wsdl:input message="tns:SearchSoapIn" />
+      <wsdl:output message="tns:SearchSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+
+  <!-- BINDING: provides details on how a portType operation will actually be transmitted -->
+  <wsdl:binding name="SearchServiceSoapBinding" type="tns:SearchSoapPort">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="Search">
+      <soap:operation soapAction="Search" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="SearchServiceSoap12Binding" type="tns:SearchSoapPort">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="Search">
+      <soap12:operation soapAction="Search" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+
+  <!-- SERVICE  -->
+  <wsdl:service name="SearchService">
+    <wsdl:port name="SearchServiceSoapPort" binding="tns:SearchServiceSoapBinding">
+      <soap:address location="http://localhost:5000/soap" />
+    </wsdl:port>
+    <wsdl:port name="SearchServiceSoap12Port" binding="tns:SearchServiceSoap12Binding">
+      <soap12:address location="http://localhost:5000/soap" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import path from "path";
+import { xml2js } from "utils/xml2js";
 import * as validator from "xsd-schema-validator";
-import * as convert from "xml-js";
 
 /* https://www.npmjs.com/package/xml-js */
 
@@ -21,15 +21,7 @@ export default function validateRequestXMLWithXSD() {
         throw new Error("XML Errors: " + result.messages.join(", "));
       }
 
-      const xml = convert.xml2js(fileString, { compact: true });
-      const { resource } = xml as any;
-      for (const key in resource) {
-        if (resource[key]._text) {
-          const value = resource[key]._text;
-          resource[key] = isNaN(Number(value)) ? value : Number(value);
-        }
-      }
-      req.body = resource;
+      req.body = xml2js(fileString);
 
       next();
     } catch (error) {

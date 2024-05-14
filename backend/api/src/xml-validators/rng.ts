@@ -2,7 +2,7 @@ import { exec } from "child_process";
 import { NextFunction, Request, Response } from "express";
 import fs from "fs"; // Import the 'fs' module
 import path from "path";
-import * as convert from "xml-js";
+import { xml2js } from "utils/xml2js";
 
 /*
 https://relaxng.org/jclark/jing.html
@@ -30,15 +30,7 @@ export default function validateRequestXMLWithRNG() {
         throw new Error("XML Errors: " + result.messages.join(", "));
       }
 
-      const xml = convert.xml2js(fileString, { compact: true });
-      const { resource } = xml as any;
-      for (const key in resource) {
-        if (resource[key]._text) {
-          const value = resource[key]._text;
-          resource[key] = isNaN(Number(value)) ? value : Number(value);
-        }
-      }
-      req.body = resource;
+      req.body = xml2js(fileString);
 
       next();
     } catch (error) {
