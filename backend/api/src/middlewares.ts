@@ -6,6 +6,7 @@ import ErrorResponse from "./interfaces/ErrorResponse";
 import RequestValidators from "./interfaces/RequestValidators";
 import { config } from "./utils/config";
 import { verifyAccessToken } from "./utils/jwt";
+import { TokenExpiredError } from "jsonwebtoken";
 
 export function notFound(req: Request, res: Response, next: NextFunction) {
   res.status(404);
@@ -68,6 +69,11 @@ export function deserializeUser(
 
     next();
   } catch (error) {
+    console.log("ERROR:: ", error, req.path);
+    if (error instanceof TokenExpiredError && req.path !== "/api/v1/auth/refreshToken") {
+      res.status(401);
+      next(new Error("TokenExpiredError"));
+    }
     next();
   }
 }

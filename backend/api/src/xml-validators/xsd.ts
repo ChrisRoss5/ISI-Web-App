@@ -18,9 +18,8 @@ export default function validateRequestXMLWithXSD() {
         throw new Error("XML Errors: " + result.messages.join(", "));
       }
 
-      const xml = convert.xml2js(fileString, { compact: true }) as any;
-      const { resource } = xml;
-      console.log(resource);
+      const xml = convert.xml2js(fileString, { compact: true });
+      const { resource } = xml as any;
       for (const key in resource) {
         if (resource[key]._text) {
           const value = resource[key]._text;
@@ -28,7 +27,7 @@ export default function validateRequestXMLWithXSD() {
         }
       }
       req.body = resource;
-      console.log(resource);
+      console.log("RESOURCE: ", resource);
 
       next();
     } catch (error) {

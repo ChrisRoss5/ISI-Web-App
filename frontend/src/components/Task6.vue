@@ -7,11 +7,13 @@ const axiosStore = useAxiosStore();
 const authStore = useAuthStore();
 const email = ref("");
 const password = ref("");
+const isRegistering = ref(false);
 const responseData = ref("");
 
-const handleLogin = async () => {
+const handleLoginOrRegister = async () => {
+  const method = isRegistering.value ? "register" : "login";
   try {
-    const response = await axiosStore.login({
+    const response = await axiosStore[method]({
       email: email.value,
       password: password.value,
     });
@@ -58,7 +60,11 @@ const handleError = (error: any) => {
         Logout
       </button>
     </div>
-    <form v-else class="flex flex-wrap gap-3" @submit.prevent="handleLogin">
+    <form
+      v-else
+      class="flex flex-wrap items-center gap-3"
+      @submit.prevent="handleLoginOrRegister"
+    >
       <input
         type="text"
         v-model="email"
@@ -75,8 +81,14 @@ const handleError = (error: any) => {
         class="btn disabled btn-primary"
         :class="{ 'btn-disabled': !(email && password) }"
       >
-        Login
+        {{ isRegistering ? "Register" : "Login" }}
       </button>
+      <a
+        class="link link-primary no-underline"
+        @click="isRegistering = !isRegistering"
+      >
+        {{ isRegistering ? "Login" : "Register" }}?
+      </a>
     </form>
     <div v-if="responseData" class="mt-3">
       <strong>Response data: </strong>

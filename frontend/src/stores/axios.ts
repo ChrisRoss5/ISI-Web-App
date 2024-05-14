@@ -8,7 +8,7 @@ interface EmailPassword {
 }
 
 const API_URL = import.meta.env.VITE_API_URL;
-const REFRESH_TOKEN_URL = `${API_URL}auth/refreshToken`;
+const REFRESH_TOKEN_URL = `${API_URL}/auth/refreshToken`;
 
 export const useAxiosStore = defineStore("axios", () => {
   const authStore = useAuthStore();
