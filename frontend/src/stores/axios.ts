@@ -66,7 +66,7 @@ export const useAxiosStore = defineStore("axios", () => {
         "Content-Type": "multipart/form-data",
       },
     });
-  }
+  };
 
   const getErrorMessage = (responeError: any) => {
     return responeError?.response?.data?.message || responeError.message;

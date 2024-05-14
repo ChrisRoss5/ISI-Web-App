@@ -1,21 +1,23 @@
 package dev.k1k1.isi_java_api.controller.rest;
 
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 import lombok.AllArgsConstructor;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
 
 @RestController
 @AllArgsConstructor
 public class MainController {
 
-    @GetMapping("/")
-    public void test() {
-        System.out.println("Test");
-    }
+  @GetMapping("/")
+  public void test() {
+    System.out.println("Test");
+  }
 
-    @PostMapping("/purchase")
-    public boolean purchaseMovie() {
-        return true;
+  @PostMapping("/purchase")
+  public boolean purchaseMovie() {
+    return true;
 
-    }
+  }
 }

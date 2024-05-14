@@ -1,7 +1,7 @@
-import { createApp } from "vue";
 import { createPinia } from "pinia";
-import "./style.css";
+import { createApp } from "vue";
 import App from "./App.vue";
+import "./style.css";
 
 const pinia = createPinia();
 const app = createApp(App);
@@ -9,7 +9,7 @@ const app = createApp(App);
 app.use(pinia);
 app.mount("#app");
 
-declare module 'axios' {
+declare module "axios" {
   export interface AxiosRequestConfig {
     authorization?: boolean;
   }
