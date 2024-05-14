@@ -1,10 +1,11 @@
 import { Router } from "express";
+import multer from "multer";
 import { paramsWithIdSchema } from "../../interfaces/ParamsWithId";
 import { requireUser, validateRequest } from "../../middlewares";
+import validateRequestXMLWithRNG from "../../xml-validators/rng";
+import validateRequestXMLWithXSD from "../../xml-validators/xsd";
 import * as ResourcesController from "./resources.controllers";
 import { resourceSchema } from "./resources.schemas";
-import validateRequestXMLWithXSD from "../../xml-validators/xsd";
-import multer from "multer";
 
 const router = Router();
 const upload = multer({ storage: multer.memoryStorage() });
@@ -18,6 +19,11 @@ router.post(
 router.post(
   "/xml-xsd",
   [requireUser, upload.single("file"), validateRequestXMLWithXSD()],
+  ResourcesController.createOne
+);
+router.post(
+  "/xml-rng",
+  [requireUser, upload.single("file"), validateRequestXMLWithRNG()],
   ResourcesController.createOne
 );
 router.get(

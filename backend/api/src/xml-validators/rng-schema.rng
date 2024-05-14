@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<element name="resource" xmlns="http://relaxng.org/ns/structure/1.0"
+  datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+  <element name="location">
+    <data type="string" />
+  </element>
+  <element name="indicator">
+    <data type="string" />
+  </element>
+  <element name="subject">
+    <data type="string" />
+  </element>
+  <element name="measure">
+    <data type="string" />
+  </element>
+  <element name="frequency">
+    <data type="string" />
+  </element>
+  <element name="time">
+    <data type="string" />
+  </element>
+  <element name="value">
+    <data type="decimal" />
+  </element>
+  <optional>
+    <element name="flagCodes">
+      <data type="string" />
+    </element>
+  </optional>
+</element>

@@ -17,14 +17,13 @@ const handleLoginOrRegister = async () => {
       email: email.value,
       password: password.value,
     });
-    console.log(response);
     responseData.value = JSON.stringify(response.data, null, 2);
     authStore.onLogin({
       accessToken: response.data.accessToken,
       refreshToken: response.data.refreshToken,
     });
   } catch (error: any) {
-    handleError(error);
+    responseData.value = axiosStore.getErrorMessage(error);
   }
 };
 
@@ -39,14 +38,8 @@ const handleUserProfile = async () => {
     console.log(response);
     responseData.value = JSON.stringify(response.data, null, 2);
   } catch (error: any) {
-    handleError(error);
+    responseData.value = axiosStore.getErrorMessage(error);
   }
-};
-
-const handleError = (error: any) => {
-  console.log(error);
-  const message = error?.response?.data?.message || error.message;
-  responseData.value = message;
 };
 </script>
 

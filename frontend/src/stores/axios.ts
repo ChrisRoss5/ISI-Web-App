@@ -58,11 +58,27 @@ export const useAxiosStore = defineStore("axios", () => {
     });
   };
 
+  const saveResourceFromXMLwithRNGvalidation = (xmlFile: File) => {
+    const formData = new FormData();
+    formData.append("file", xmlFile);
+    return client.post("/resources/xml-rng", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+  }
+
+  const getErrorMessage = (responeError: any) => {
+    return responeError?.response?.data?.message || responeError.message;
+  };
+
   return {
     client,
     register,
     login,
     getProfile,
     saveResourceFromXMLwithXSDvalidation,
+    saveResourceFromXMLwithRNGvalidation,
+    getErrorMessage,
   };
 });

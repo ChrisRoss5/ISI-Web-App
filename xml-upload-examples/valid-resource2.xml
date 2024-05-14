@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resource>
+  <location>Location2</location>
+  <indicator>Indicator2</indicator>
+  <subject>Subject2</subject>
+  <measure>Measure2</measure>
+  <frequency>Frequency2</frequency>
+  <time>Time2</time>
+  <value>67</value>
+</resource>
