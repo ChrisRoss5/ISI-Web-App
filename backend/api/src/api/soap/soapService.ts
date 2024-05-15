@@ -4,6 +4,7 @@ import * as convert from "xml-js";
 import * as xpath from "xpath";
 import { db } from "../../db";
 import { xml2js } from "../../utils/xml2js";
+import path from "path";
 
 const parser = new dom.DOMParser();
 
@@ -18,7 +19,10 @@ const service = {
           { resources: { resource: resources } },
           { compact: true }
         );
-        fs.writeFileSync("temp.xml", xml);
+        fs.writeFileSync(
+          path.join(process.cwd(), "/src/xml-validators/xsd-jaxb/task3.xml"),
+          xml
+        );
 
         const doc = parser.parseFromString(xml, "text/xml");
         const expression = searchProperty

@@ -1,9 +1,9 @@
 import { NextFunction, Request, Response } from "express";
 import path from "path";
 import * as validator from "xsd-schema-validator";
-import { xml2js } from "../utils/xml2js";
+import { xml2js } from "../../utils/xml2js";
 
-/* https://www.npmjs.com/package/xml-js */
+/* https://www.npmjs.com/package/xsd-schema-validator */
 
 export default function validateRequestXMLWithXSD() {
   return async (req: Request, res: Response, next: NextFunction) => {

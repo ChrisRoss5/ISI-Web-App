@@ -68,17 +68,21 @@ export const useAxiosStore = defineStore("axios", () => {
     });
   };
 
+  const checkTask3 = () => {
+    return client.get("/check-task-3");
+  }
+
   const getErrorMessage = (responeError: any) => {
     return responeError?.response?.data?.message || responeError.message;
   };
 
   return {
-    client,
     register,
     login,
     getProfile,
     saveResourceFromXMLwithXSDvalidation,
     saveResourceFromXMLwithRNGvalidation,
+    checkTask3,
     getErrorMessage,
   };
 });

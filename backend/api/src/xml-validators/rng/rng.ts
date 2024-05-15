@@ -2,11 +2,13 @@ import { exec } from "child_process";
 import { NextFunction, Request, Response } from "express";
 import fs from "fs";
 import path from "path";
-import { xml2js } from "../utils/xml2js";
+import { xml2js } from "../../utils/xml2js";
 
 /*
 https://relaxng.org/jclark/jing.html
-https://relaxng.org/tutorial-20030326.html
+
+jing.jar built from:
+https://github.com/relaxng/jing-trang
  */
 
 export default function validateRequestXMLWithRNG() {
@@ -17,13 +19,13 @@ export default function validateRequestXMLWithRNG() {
       console.log("Validating XML with RNG");
 
       const fileString = req.file.buffer.toString();
-      const jingPath = path.resolve(__dirname, "jing.jar");
+      const jarPath = path.resolve(__dirname, "jing.jar");
       const schemaPath = path.resolve(__dirname, "rng-schema.rng");
       const tempFilePath = path.resolve(__dirname, "temp.xml");
       fs.writeFileSync(tempFilePath, fileString);
-      const command = `java -jar "${jingPath}" "${schemaPath}" "${tempFilePath}`;
+      const command = `java -jar "${jarPath}" "${schemaPath}" "${tempFilePath}`;
 
-      const result = await validateXMLWithRNG(command);
+      const result = await validate(command);
       fs.unlinkSync(tempFilePath);
       if (!result.valid) {
         res.status(400);
@@ -39,7 +41,7 @@ export default function validateRequestXMLWithRNG() {
   };
 }
 
-async function validateXMLWithRNG(
+async function validate(
   command: string
 ): Promise<{ valid: boolean; messages: string[] }> {
   return new Promise((resolve, reject) => {
