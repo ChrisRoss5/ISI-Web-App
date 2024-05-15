@@ -70,7 +70,11 @@ export const useAxiosStore = defineStore("axios", () => {
 
   const checkTask3 = () => {
     return client.get("/check-task-3");
-  }
+  };
+
+  const getCurrentTemperature = (city = "") => {
+    return client.get("/get-current-temperature?city=" + city);
+  };
 
   const getErrorMessage = (responeError: any) => {
     return responeError?.response?.data?.message || responeError.message;
@@ -83,6 +87,7 @@ export const useAxiosStore = defineStore("axios", () => {
     saveResourceFromXMLwithXSDvalidation,
     saveResourceFromXMLwithRNGvalidation,
     checkTask3,
+    getCurrentTemperature,
     getErrorMessage,
   };
 });

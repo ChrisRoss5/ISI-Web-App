@@ -4,6 +4,7 @@ import checkGeneratedXMLfileAgainstXSDusingJAXB from "../../xml-validators/xsd-j
 import authRoutes from "./auth/auth.routes";
 import resourcesRoutes from "./resources/resources.routes";
 import usersRoutes from "./users/users.routes";
+import getCurrentTemperature from "./getCurrentTemperature";
 
 const router = express.Router();
 
@@ -18,5 +19,6 @@ router.use("/users", usersRoutes);
 router.use("/resources", resourcesRoutes);
 
 router.get("/check-task-3", checkGeneratedXMLfileAgainstXSDusingJAXB);
+router.get("/get-current-temperature", getCurrentTemperature);
 
 export default router;
