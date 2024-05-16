@@ -18,10 +18,7 @@ const checkTask3 = async () => {
 <template>
   <div>
     <div class="flex flex-wrap gap-3">
-      <button
-        class="btn disabled btn-primary"
-        @click="checkTask3"
-      >
+      <button class="btn disabled btn-primary" @click="checkTask3">
         Check
       </button>
     </div>
