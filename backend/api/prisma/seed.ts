@@ -19,18 +19,16 @@ async function main() {
   console.log("Created user: ", user);
   console.log("User password: test123");
 
-
   const results = [] as any;
-  fs.createReadStream("../dataset/renewable_energy.csv")
+  fs.createReadStream("prisma/dataset/renewable_energy.csv")
     .pipe(csv())
     .on("data", (data) => results.push(data))
     .on("end", async () => {
-
       const collection = await prisma.$transaction(
         results.map((resource: any) =>
           prisma.resource.create({
             data: {
-              location: resource['"LOCATION"'],
+              location: resource['﻿"LOCATION"'],
               indicator: resource.INDICATOR,
               subject: resource.SUBJECT,
               measure: resource.MEASURE,

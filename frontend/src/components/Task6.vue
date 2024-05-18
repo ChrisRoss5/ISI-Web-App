@@ -29,7 +29,7 @@ const handleLoginOrRegister = async () => {
 
 const handleLogout = async () => {
   authStore.onLogout();
-  responseData.value = "Logged out by deleting tokens from local storage.";
+  responseData.value = "Successfully logged out by deleting tokens.";
 };
 
 const handleUserProfile = async () => {

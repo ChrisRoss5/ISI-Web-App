@@ -23,7 +23,7 @@ export default function validateRequestXMLWithRNG() {
       const schemaPath = path.resolve(__dirname, "rng-schema.rng");
       const tempFilePath = path.resolve(__dirname, "temp.xml");
       fs.writeFileSync(tempFilePath, fileString);
-      const command = `java -jar "${jarPath}" "${schemaPath}" "${tempFilePath}`;
+      const command = `java -jar "${jarPath}" "${schemaPath}" "${tempFilePath}"`;
 
       const result = await validate(command);
       fs.unlinkSync(tempFilePath);

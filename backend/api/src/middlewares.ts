@@ -69,7 +69,6 @@ export function deserializeUser(
 
     next();
   } catch (error) {
-    console.log("ERROR:: ", error, req.path);
     if (
       error instanceof TokenExpiredError &&
       req.path !== "/api/rest/auth/refreshToken"

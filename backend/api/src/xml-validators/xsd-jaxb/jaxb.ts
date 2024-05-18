@@ -28,7 +28,7 @@ export default async function checkGeneratedXMLfileAgainstXSDusingJAXB(
       "XmlValidatorAgainstXSDusingJAXB.jar"
     );
     const schemaPath = path.resolve(__dirname, "xsd-schema.xsd");
-    const command = `java -jar "${jarPath}" "${schemaPath}" "${task3Path}`;
+    const command = `java -jar "${jarPath}" "${schemaPath}" "${task3Path}"`;
     const result = await validate(command);
 
     if (!result.valid) {

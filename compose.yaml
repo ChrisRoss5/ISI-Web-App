@@ -1,0 +1,19 @@
+# https://docs.docker.com/go/compose-spec-reference/
+
+name: isi-web-app
+
+services:
+  backend:
+    build:
+      context: backend/api
+    ports:
+      - 5000:5000
+      - 5001:5001
+      - 5002:5002
+      - 5003:5003
+      
+  frontend:
+    build:
+      context: frontend
+    ports:
+      - 5173:5173 # 5173 spells SITE :)

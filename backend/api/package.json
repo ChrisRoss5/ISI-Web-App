@@ -1,24 +1,23 @@
 {
   "name": "isi-backend",
+  "private": true,
   "version": "1.0.0",
-  "description": " A basic starter for an express.js auth with Typescript",
   "main": "src/index.ts",
   "prisma": {
     "seed": "ts-node prisma/seed.ts"
   },
   "scripts": {
-    "prisma-generate": "prisma generate",
-    "prisma-migrate": "prisma migrate dev",
-    "prisma-studio": "prisma studio",
-    "prisma-seed": "npx prisma db seed",
+    "prisma:generate": "prisma generate",
+    "prisma:migrate": "prisma migrate dev",
+    "prisma:migrate-reset": "prisma migrate reset",
+    "prisma:studio": "prisma studio --port 5003",
+    "prisma:seed": "npx prisma db seed",
     "start": "ts-node src/index.ts",
     "dev": "nodemon src/index.ts",
     "debug": "set DEBUG=express:* & nodemon src/index.ts",
     "build": "tsc",
     "lint": "eslint --fix src"
   },
-  "keywords": [],
-  "license": "MIT",
   "dependencies": {
     "@prisma/client": "^4.4.0",
     "@xmldom/xmldom": "^0.8.10",

@@ -1,10 +1,9 @@
 {
   "name": "isi-frontend",
-  "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --host",
     "build": "vue-tsc && vite build",
     "preview": "vite preview"
   },
@@ -24,5 +23,8 @@
     "typescript": "^5.2.2",
     "vite": "^5.2.0",
     "vue-tsc": "^2.0.6"
+  },
+  "optionalDependencies": {
+    "@rollup/rollup-linux-x64-gnu": "^4.17.2"
   }
 }
