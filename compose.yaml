@@ -5,13 +5,13 @@ name: isi-web-app
 services:
   backend:
     build:
-      context: backend/api
+      context: backend/app
     ports:
       - 5000:5000
       - 5001:5001
       - 5002:5002
       - 5003:5003
-      
+
   frontend:
     build:
       context: frontend

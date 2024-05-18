@@ -3,6 +3,7 @@ import { NextFunction, Request, Response } from "express";
 import fs from "fs";
 import path from "path";
 import { xml2js } from "../../utils/xml2js";
+import log from "utils/logger";
 
 /*
 https://relaxng.org/jclark/jing.html
@@ -16,7 +17,7 @@ export default function validateRequestXMLWithRNG() {
     try {
       if (!req.file) throw new Error("No file provided");
 
-      console.log("Validating XML with RNG");
+      log("Validating XML with RNG", __filename);
 
       const fileString = req.file.buffer.toString();
       const jarPath = path.resolve(__dirname, "jing.jar");
@@ -26,6 +27,8 @@ export default function validateRequestXMLWithRNG() {
       const command = `java -jar "${jarPath}" "${schemaPath}" "${tempFilePath}"`;
 
       const result = await validate(command);
+      log(`Validation ${result.valid ? "successful" : "failed"}`, __filename);
+
       fs.unlinkSync(tempFilePath);
       if (!result.valid) {
         res.status(400);
@@ -46,9 +49,9 @@ async function validate(
 ): Promise<{ valid: boolean; messages: string[] }> {
   return new Promise((resolve, reject) => {
     exec(command, (error, stdout, stderr) => {
-      console.log("ERROR: ", error, !!error);
-      console.log("STDOUT: ", stdout, !!stdout);
-      console.log("STDERR: ", stderr, !!stderr);
+      // console.log("ERROR: ", error, !!error);
+      // console.log("STDOUT: ", stdout, !!stdout);
+      // console.log("STDERR: ", stderr, !!stderr);
       resolve({
         valid: !error && !stdout && !stderr,
         messages: [stdout],

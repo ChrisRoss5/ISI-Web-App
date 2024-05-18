@@ -1,3 +1,4 @@
+import log from "utils/logger";
 import { xml2js } from "xml-js";
 import xmlrpc from "xmlrpc";
 
@@ -6,7 +7,7 @@ const getCurrentTemperature: xmlrpc.ServerFunction = async (
   params,
   callback
 ) => {
-  console.log("XML-RPC server function called");
+  log("XML-RPC server function called", __filename);
 
   const cityName = params[0] || "Slavonski Brod";
   const response = await fetch("https://vrijeme.hr/hrvatska_n.xml");

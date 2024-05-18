@@ -35,7 +35,6 @@ const handleLogout = async () => {
 const handleUserProfile = async () => {
   try {
     const response = await axiosStore.getProfile();
-    console.log(response);
     responseData.value = JSON.stringify(response.data, null, 2);
   } catch (error: any) {
     responseData.value = axiosStore.getErrorMessage(error);

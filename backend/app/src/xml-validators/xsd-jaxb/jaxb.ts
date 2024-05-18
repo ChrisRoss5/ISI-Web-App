@@ -2,6 +2,7 @@ import { exec } from "child_process";
 import { NextFunction, Request, Response } from "express";
 import fs from "fs";
 import path from "path";
+import log from "utils/logger";
 
 export default async function checkGeneratedXMLfileAgainstXSDusingJAXB(
   req: Request,
@@ -9,8 +10,9 @@ export default async function checkGeneratedXMLfileAgainstXSDusingJAXB(
   next: NextFunction
 ) {
   try {
-    console.log(
-      "Validating XML generated from soap service with XSD using JAXB"
+    log(
+      "Validating XML generated from the SOAP service with XSD using JAXB",
+      __filename
     );
 
     const task3Path = path.resolve(__dirname, "task3.xml");
@@ -30,6 +32,7 @@ export default async function checkGeneratedXMLfileAgainstXSDusingJAXB(
     const schemaPath = path.resolve(__dirname, "xsd-schema.xsd");
     const command = `java -jar "${jarPath}" "${schemaPath}" "${task3Path}"`;
     const result = await validate(command);
+    log(`Validation ${result.valid ? "successful" : "failed"}`, __filename);
 
     if (!result.valid) {
       res.status(400);
@@ -48,9 +51,9 @@ async function validate(
 ): Promise<{ valid: boolean; messages: string[] }> {
   return new Promise((resolve, reject) => {
     exec(command, (error, stdout, stderr) => {
-      console.log("ERROR: ", error, !!error);
-      console.log("STDOUT: ", stdout, !!stdout);
-      console.log("STDERR: ", stderr, !!stderr);
+      // console.log("ERROR: ", error, !!error);
+      // console.log("STDOUT: ", stdout, !!stdout);
+      // console.log("STDERR: ", stderr, !!stderr);
       resolve({
         valid: !error && !stdout && !stderr,
         messages: [stdout],

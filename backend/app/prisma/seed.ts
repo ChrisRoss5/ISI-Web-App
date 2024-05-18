@@ -3,6 +3,7 @@
 import { PrismaClient } from "@prisma/client";
 import fs from "fs";
 import csv from "csv-parser";
+import log from "utils/logger";
 
 const prisma = new PrismaClient();
 
@@ -16,8 +17,7 @@ async function main() {
     },
   });
 
-  console.log("Created user: ", user);
-  console.log("User password: test123");
+  log("Created user { email: a@a.hr, password: test123 }", __filename);
 
   const results = [] as any;
   fs.createReadStream("prisma/dataset/renewable_energy.csv")
@@ -44,8 +44,10 @@ async function main() {
         )
       );
 
-      console.log(`Created ${collection.length} resources`);
+      log(`Created ${collection.length} resources`, __filename);
     });
+
+  log("Seeding complete", __filename);
 }
 main()
   .then(async () => {

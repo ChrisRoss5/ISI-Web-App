@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import xmlRpcClient from "../xml-rpc/client";
+import log from "utils/logger";
 
 export default async function getCurrentTemperature(
   req: Request,
@@ -7,8 +8,9 @@ export default async function getCurrentTemperature(
   next: NextFunction
 ) {
   try {
-    console.log(
-      "Getting current temperature by calling XML-RPC service from REST API"
+    log(
+      "Getting current temperature by calling XML-RPC service from REST API",
+      __filename
     );
 
     const { city } = req.query;
