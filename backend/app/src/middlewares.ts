@@ -1,8 +1,8 @@
 import { NextFunction, Request, Response } from "express";
 import { ZodError } from "zod";
 
+import { ParsedToken } from "@typings/token";
 import { TokenExpiredError } from "jsonwebtoken";
-import { ParsedToken } from "../typings/token";
 import ErrorResponse from "./interfaces/ErrorResponse";
 import RequestValidators from "./interfaces/RequestValidators";
 import { config } from "./utils/config";

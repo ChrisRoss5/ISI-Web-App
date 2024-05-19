@@ -1,4 +1,4 @@
-import path from 'path';
+import path from "path";
 
 export default function log(message: string, filePath: string) {
   const parts = filePath.split(path.sep);

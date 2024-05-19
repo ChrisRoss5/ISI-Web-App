@@ -16,7 +16,7 @@ export default async function getCurrentTemperature(
     const { city } = req.query;
 
     xmlRpcClient.methodCall("getCurrentTemperature", [city], (error, value) => {
-      if (error) throw error;
+      if (error) throw new Error(error.toString());
       res.json(
         `Current temperature in ${value.cityName}: ${value.temperature}°C`
       );

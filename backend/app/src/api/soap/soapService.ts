@@ -1,11 +1,11 @@
 import * as dom from "@xmldom/xmldom";
+import { db } from "db";
 import fs from "fs";
-import * as convert from "xml-js";
-import * as xpath from "xpath";
-import { db } from "../../db";
-import { xml2js } from "../../utils/xml2js";
 import path from "path";
 import log from "utils/logger";
+import { xml2js } from "utils/xml2js";
+import * as convert from "xml-js";
+import * as xpath from "xpath";
 
 const parser = new dom.DOMParser();
 

@@ -1,9 +1,9 @@
-import { exec } from "child_process";
 import { NextFunction, Request, Response } from "express";
 import fs from "fs";
 import path from "path";
-import { xml2js } from "../../utils/xml2js";
 import log from "utils/logger";
+import { xml2js } from "utils/xml2js";
+import validate from "../exec";
 
 /*
 https://relaxng.org/jclark/jing.html
@@ -42,20 +42,4 @@ export default function validateRequestXMLWithRNG() {
       next(error);
     }
   };
-}
-
-async function validate(
-  command: string
-): Promise<{ valid: boolean; messages: string[] }> {
-  return new Promise((resolve, reject) => {
-    exec(command, (error, stdout, stderr) => {
-      // console.log("ERROR: ", error, !!error);
-      // console.log("STDOUT: ", stdout, !!stdout);
-      // console.log("STDERR: ", stderr, !!stderr);
-      resolve({
-        valid: !error && !stdout && !stderr,
-        messages: [stdout],
-      });
-    });
-  });
 }

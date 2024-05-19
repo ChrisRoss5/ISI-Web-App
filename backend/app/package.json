@@ -12,10 +12,9 @@
     "prisma:migrate-reset": "prisma migrate reset",
     "prisma:studio": "prisma studio --port 5003",
     "prisma:seed": "npx prisma db seed",
-    "start": "ts-node src/index.ts",
-    "dev": "nodemon src/index.ts",
-    "debug": "set DEBUG=express:* & nodemon src/index.ts",
-    "build": "tsc",
+    "start": "ts-node -r tsconfig-paths/register src/index.ts",
+    "dev": "nodemon -r tsconfig-paths/register src/index.ts",
+    "debug": "set DEBUG=express:* & nodemon -r tsconfig-paths/register src/index.ts",
     "lint": "eslint --fix src"
   },
   "dependencies": {
@@ -64,6 +63,7 @@
     "prisma": "^4.4.0",
     "supertest": "^6.2.4",
     "ts-node": "^10.9.1",
+    "tsconfig-paths": "^4.2.0",
     "typescript": "^4.8.4"
   }
 }

@@ -1,10 +1,10 @@
 import * as bcrypt from "bcrypt";
 import cuid from "cuid";
 import { NextFunction, Request, Response } from "express";
-import { TokensResponseInterface } from "../../../interfaces/TokensResponse";
-import { hashToken } from "../../../utils/hashToken";
-import { generateTokens, verifyRefreshToken } from "../../../utils/jwt";
-import { sendRefreshToken } from "../../../utils/sendRefreshToken";
+import { TokensResponseInterface } from "interfaces/TokensResponse";
+import { hashToken } from "utils/hashToken";
+import { generateTokens, verifyRefreshToken } from "utils/jwt";
+import { sendRefreshToken } from "utils/sendRefreshToken";
 import {
   createUserByEmailAndPassword,
   findUserByEmail,

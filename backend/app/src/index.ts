@@ -1,17 +1,17 @@
+import api from "api/rest";
+import soapService from "api/soap/soapService";
+import getCurrentTemperature from "api/xml-rpc/getCurrentTemperature";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import express from "express";
 import fs from "fs";
 import helmet from "helmet";
+import * as middlewares from "middlewares";
 import morgan from "morgan";
 import * as soap from "soap";
+import { config } from "utils/config";
 import log from "utils/logger";
 import xmlrpc from "xmlrpc";
-import api from "./api/rest";
-import soapService from "./api/soap/soapService";
-import getCurrentTemperature from "./api/xml-rpc/getCurrentTemperature";
-import * as middlewares from "./middlewares";
-import { config } from "./utils/config";
 
 // Tasks 1, 2, 4, 5, 6
 const restApp = express();
@@ -34,7 +34,7 @@ const soapApp = express();
 const soapXml = fs.readFileSync("src/api/soap/search.wsdl", "utf8");
 soap.listen(soapApp, "/api/soap", soapService, soapXml, () => {
   const url = `http://localhost:${config.soap_port}/api/soap`;
-  log(`SOAP listening: ${url}\nSOAP WSDL available at ${url}?wsdl`, __filename);
+  log(`SOAP listening: ${url}`, __filename);
 });
 soapApp.use(cors());
 soapApp.listen(config.soap_port);

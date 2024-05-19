@@ -1,9 +1,9 @@
 // https://www.prisma.io/docs/orm/prisma-migrate/workflows/seeding
 
 import { PrismaClient } from "@prisma/client";
-import fs from "fs";
 import csv from "csv-parser";
-import log from "utils/logger";
+import fs from "fs";
+import log from "../src/utils/logger";
 
 const prisma = new PrismaClient();
 

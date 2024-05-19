@@ -4,10 +4,10 @@ WORKDIR /app
 
 COPY package*.json .
 RUN npm install
-RUN npm install bcrypt
 
 COPY prisma ./prisma
 COPY .env .
+COPY src/utils/logger.ts src/utils/logger.ts
 RUN npx prisma generate
 RUN npx prisma migrate reset --force
 

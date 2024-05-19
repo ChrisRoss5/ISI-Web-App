@@ -10,6 +10,10 @@
     "strict": true,
     "skipLibCheck": true,
     "baseUrl": "src",
+    "paths": {
+      "@/*": ["./*"],
+      "@typings/*": ["../typings/*"],
+    },
     "typeRoots": ["./typings", "./node_modules/@types"],
     "types": ["express", "node"]
   },

@@ -1,8 +1,8 @@
-import { exec } from "child_process";
 import { NextFunction, Request, Response } from "express";
 import fs from "fs";
 import path from "path";
 import log from "utils/logger";
+import validate from "../exec";
 
 export default async function checkGeneratedXMLfileAgainstXSDusingJAXB(
   req: Request,
@@ -44,20 +44,4 @@ export default async function checkGeneratedXMLfileAgainstXSDusingJAXB(
   } catch (error) {
     next(error);
   }
-}
-
-async function validate(
-  command: string
-): Promise<{ valid: boolean; messages: string[] }> {
-  return new Promise((resolve, reject) => {
-    exec(command, (error, stdout, stderr) => {
-      // console.log("ERROR: ", error, !!error);
-      // console.log("STDOUT: ", stdout, !!stdout);
-      // console.log("STDERR: ", stderr, !!stderr);
-      resolve({
-        valid: !error && !stdout && !stderr,
-        messages: [stdout],
-      });
-    });
-  });
 }

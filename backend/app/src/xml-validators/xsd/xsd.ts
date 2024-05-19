@@ -1,8 +1,8 @@
 import { NextFunction, Request, Response } from "express";
 import path from "path";
-import * as validator from "xsd-schema-validator";
-import { xml2js } from "../../utils/xml2js";
 import log from "utils/logger";
+import { xml2js } from "utils/xml2js";
+import * as validator from "xsd-schema-validator";
 
 /* https://www.npmjs.com/package/xsd-schema-validator */
 
