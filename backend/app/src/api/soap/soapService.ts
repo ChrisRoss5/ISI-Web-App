@@ -21,7 +21,8 @@ const service = {
           { resources: { resource: resources } },
           { compact: true }
         );
-        const dest = path.join(process.cwd(), "/src/xml-validators/xsd-jaxb");
+        const dest = path.join(process.cwd(), "/src/xml-validators/xsd-jaxb/task3.xml");
+
         fs.writeFileSync(dest, xml);
         log("XML file written at " + dest, __filename);
 

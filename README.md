@@ -33,7 +33,7 @@ https://www.docker.com/products/docker-desktop/
     - https://www.npmjs.com/package/xmlrpc
   - Prisma studio server (port: 5003):
     - https://www.npmjs.com/package/prisma
-- [backend/XMLValidatorAgainstXSDusingJAXB](backend/XMLValidatorAgainstXSDusingJAXB) - a self-explanatory Java (v21) app.
+- [backend/XmlValidatorAgainstXSDusingJAXB](backend/XmlValidatorAgainstXSDusingJAXB) - a self-explanatory Java (v21) app.
   - Its purpose is to create an artifact (.jar) to be run by the Node.js app via `java -jar` command.
 - [frontend](frontend) - a Vue.js app (port: 5173)
 
@@ -44,4 +44,4 @@ https://www.docker.com/products/docker-desktop/
 - RNG (RelaxNG)
   - https://github.com/relaxng/jing-trang
 - XSD-JAXB (Java Architecture for XML Binding)
-  - My implementation: [backend/XMLValidatorAgainstXSDusingJAXB](backend/XMLValidatorAgainstXSDusingJAXB)
+  - My implementation: [backend/XmlValidatorAgainstXSDusingJAXB](backend/XmlValidatorAgainstXSDusingJAXB)
