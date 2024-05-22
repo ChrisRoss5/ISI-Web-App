@@ -9,16 +9,33 @@ const getCurrentTemperature: xmlrpc.ServerFunction = async (
 ) => {
   log("XML-RPC server function called", __filename);
 
-  const cityName = params[0] || "Slavonski Brod";
+  const searchedCityName = params[0] || "Slavonski Brod";
   const response = await fetch("https://vrijeme.hr/hrvatska_n.xml");
   const xml = await response.text();
   const weather = xml2js(xml, { compact: true }) as any;
 
   const cities = weather.Hrvatska.Grad;
-  const city = cities.find((c: any) => c.GradIme._text == cityName);
-  const temperature = city.Podatci.Temp._text;
 
-  callback(null, { cityName, temperature });
+  console.log("SEARCING:", searchedCityName);
+
+  const filteredCities = cities.filter((c: any) => {
+    const cityName = c.GradIme._text.toLowerCase();
+    return cityName.includes(searchedCityName.toLowerCase());
+  });
+
+  if (!filteredCities.length) {
+    callback(`Not found`, "City not found");
+    return;
+  }
+
+  const temperatures = filteredCities.map((city: any) => {
+    return {
+      cityName: city.GradIme._text,
+      temperature: city.Podatci.Temp._text,
+    };
+  });
+
+  callback(null, { temperatures });
 };
 
 export default getCurrentTemperature;
